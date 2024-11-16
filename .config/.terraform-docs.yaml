@@ -1,0 +1,61 @@
+version: ""
+
+formatter: markdown table
+
+name: terraform-docker-remote-docker-compose
+
+content: |-
+  # Terraform Account Starter
+
+  GitHub: [wesleykirkland/terraform-docker-remote-docker-compose](https://github.com/wesleykirkland/terraform-docker-remote-docker-compose)
+
+  Designed and originally created to remotely execute docker-compose stacks on unraid via remote ssh. Portainer stack management became unusable and with MacVLAN stack management became impossible.
+
+  Depends upon docker-compose being in the path on the remote system.
+
+  ```hcl
+  {{ include "examples/example1.tf" }}
+  ```
+
+  ---
+
+  {{ .Requirements }}
+
+  {{ .Resources }}
+
+  {{ .Inputs }}
+
+  {{ .Outputs }}
+
+  ---
+
+  ### Before this is applied, you need to configure the git hook on your local machine
+  ```bash
+  # Test your pre-commit hooks - This will force them to run on all files
+  pre-commit run --all-files
+
+  # Add your pre-commit hooks forever
+  pre-commit install
+  ```
+
+  Note: Before reading, uncomment the code for the environment that you
+  wish to apply the code to. This goes for both the init-tfvars and apply-tfvars
+  folders.
+
+  Note, manual changes to the README will be overwritten when the documentation is updated. To update the documentation, run `terraform-docs -c .config/.terraform-docs.yml .`
+
+sections:
+  show:
+    - header
+    - requirements
+    - resources
+    - inputs
+    - outputs
+
+sort:
+  enabled: true
+  by: name
+
+output:
+  file: README.md
+  mode: replace
