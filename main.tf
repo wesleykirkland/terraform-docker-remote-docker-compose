@@ -57,7 +57,7 @@ resource "null_resource" "remote_docker_compose" {
 
 
 resource "null_resource" "post_delete_env_file" {
-  count = var.compose_action == "up" || var.compose_action == "down" || var.post_delete_env_file == true ? 1 : 0
+  count = (var.compose_action == "up" || var.compose_action == "down") && var.post_delete_env_file == true ? 1 : 0
 
   triggers = {
     compose_file_checksum = local.compose_file_checksum
