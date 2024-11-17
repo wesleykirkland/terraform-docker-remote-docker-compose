@@ -112,7 +112,7 @@ resource "null_resource" "cleanup" {
       else
           echo \"The stack is not running, proceeding with deletion.\"
       fi
-    "
+      "
 
       # Delete our docker compose directory and all related files
       ssh -i ${var.ssh_key} ${var.ssh_user}@${var.docker_host} "rm -rf ${var.remote_compose_path}/${local.compose_file_short}"
