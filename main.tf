@@ -46,7 +46,7 @@ resource "null_resource" "remote_docker_compose" {
     }
 
     inline = [
-      "docker-compose -f ${self.triggers.compose_file} ${var.env_file != null ? "--env-file ${var.remote_compose_path}/${local.compose_file_short}/.env" : ""} ${self.triggers.compose_action} ${var.compose_action == "up" ? "-d" : ""}",
+      "docker-compose -f ${self.triggers.compose_file} ${var.env_file != null ? "--env-file ${var.remote_compose_path}/${local.compose_file_short}/.env" : ""} ${self.triggers.compose_action} ${var.compose_action == "up" ? "-d" : ""} --remove-orphans",
     ]
   }
 
