@@ -84,7 +84,17 @@ resource "null_resource" "cleanup" {
 
   provisioner "local-exec" {
     command = <<EOT
-      # Make our docker compose directory, all related files will be stored here
+      #Check for if our docker compose stack is running
+      COMPOSE_CHECK=$(docker ps --filter "label=com.docker.compose.project=${local.compose_file_short}" --quiet)
+
+      if [ -n "$COMPOSE_CHECK" ]; then
+          echo "The stack is running, turning down stack before deletion."
+          docker-compose -f ${self.triggers.compose_file} down --remove-orphans",
+      else
+          echo "The stack is not running, proceeding with deletion."
+      fi
+
+      # Delete our docker compose directory and all related files
       ssh -i ${var.ssh_key} ${var.ssh_user}@${var.docker_host} "rm -rf ${var.remote_compose_path}/${local.compose_file_short}"
     EOT
   }
