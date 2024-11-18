@@ -45,3 +45,10 @@ variable "compose_action" {
     error_message = "Invalid action selected, only allowed actions are: 'up', 'down', 'delete'"
   }
 }
+
+variable "force_pull_image" {
+  description = "Docker compose force pull image"
+  type        = bool
+  default     = false
+}
+

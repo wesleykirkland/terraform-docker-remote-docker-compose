@@ -34,6 +34,7 @@ resource "null_resource" "remote_docker_compose" {
     env_file_checksum     = local.env_file_checksum
     compose_action        = var.compose_action
     compose_file          = local.full_compose_path
+    force_pull_image      = var.force_pull_image == true ? timestamp() : null
   }
 
   # SSH provisioner to run the script on the Unraid server
@@ -46,7 +47,14 @@ resource "null_resource" "remote_docker_compose" {
     }
 
     inline = [
-      "docker-compose -f ${self.triggers.compose_file} ${var.env_file != null ? "--env-file ${var.remote_compose_path}/${local.compose_file_short}/.env" : ""} ${self.triggers.compose_action} ${var.compose_action == "up" ? "-d" : ""} --remove-orphans",
+      var.force_pull_image == false
+      ? "docker-compose -f ${self.triggers.compose_file} ${var.env_file != null ? "--env-file ${var.remote_compose_path}/${local.compose_file_short}/.env" : ""} ${self.triggers.compose_action} ${var.compose_action == "up" ? "-d" : ""} --remove-orphans"
+      : <<EOT
+        docker-compose -f ${self.triggers.compose_file} pull
+        docker-compose -f ${self.triggers.compose_file} down
+        docker-compose -f ${self.triggers.compose_file} up -d
+        EOT
+      ,
     ]
   }
 
