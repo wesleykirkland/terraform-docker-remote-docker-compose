@@ -52,7 +52,7 @@ resource "null_resource" "remote_docker_compose" {
       : <<EOT
         docker-compose -f ${self.triggers.compose_file} pull
         docker-compose -f ${self.triggers.compose_file} down
-        docker-compose -f ${self.triggers.compose_file} up -d
+        docker-compose -f ${self.triggers.compose_file} ${var.env_file != null ? "--env-file ${var.remote_compose_path}/${local.compose_file_short}/.env" : ""} ${self.triggers.compose_action} ${var.compose_action == "up" ? "-d" : ""} --remove-orphans
         EOT
       ,
     ]
