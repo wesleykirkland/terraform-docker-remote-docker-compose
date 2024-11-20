@@ -1,5 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
-# Terraform Account Starter
+# Terraform Docker Remote Docker Compose
 
 GitHub: [wesleykirkland/terraform-docker-remote-docker-compose](https://github.com/wesleykirkland/terraform-docker-remote-docker-compose)
 
