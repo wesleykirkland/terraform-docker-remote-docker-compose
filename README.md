@@ -69,11 +69,12 @@ module "sample" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_compose_action"></a> [compose\_action](#input\_compose\_action) | Docker compose action up/down/delete | `string` | `"up"` | no |
 | <a name="input_docker_host"></a> [docker\_host](#input\_docker\_host) | FQDN of your docker host to ssh to | `string` | n/a | yes |
-| <a name="input_env_file"></a> [env\_file](#input\_env\_file) | Unencrypted ENV file to pass to the docker compose stack | `string` | `""` | no |
+| <a name="input_env_file"></a> [env\_file](#input\_env\_file) | Unencrypted ENV file to pass to the docker compose stack | `string` | `null` | no |
 | <a name="input_force_pull_image"></a> [force\_pull\_image](#input\_force\_pull\_image) | Docker compose force pull image | `bool` | `false` | no |
 | <a name="input_local_compose_file"></a> [local\_compose\_file](#input\_local\_compose\_file) | Path to docker compose file on the local file system | `string` | n/a | yes |
 | <a name="input_post_delete_env_file"></a> [post\_delete\_env\_file](#input\_post\_delete\_env\_file) | Delete the ENV file after stack execution, highly not recommended | `bool` | `false` | no |
 | <a name="input_remote_compose_path"></a> [remote\_compose\_path](#input\_remote\_compose\_path) | Path to docker compose file on the remote file system. We will make a folder with the stack name to store the stack in. | `string` | n/a | yes |
+| <a name="input_source_env_file"></a> [source\_env\_file](#input\_source\_env\_file) | Encrypted or unencrypted ENV file to pass to the docker compose stack. This is only used for checksum purposes. | `string` | `null` | no |
 | <a name="input_ssh_key"></a> [ssh\_key](#input\_ssh\_key) | Path to the SSH key | `string` | n/a | yes |
 | <a name="input_ssh_user"></a> [ssh\_user](#input\_ssh\_user) | ssh user | `string` | n/a | yes |
 

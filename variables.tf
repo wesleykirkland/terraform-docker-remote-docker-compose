@@ -18,10 +18,16 @@ variable "remote_compose_path" {
   type        = string
 }
 
+variable "source_env_file" {
+  description = "Encrypted or unencrypted ENV file to pass to the docker compose stack. This is only used for checksum purposes."
+  type        = string
+  default     = null
+}
+
 variable "env_file" {
   description = "Unencrypted ENV file to pass to the docker compose stack"
   type        = string
-  default     = "" # Can't be null due to fileexists()
+  default     = null
 }
 
 variable "ssh_key" {
