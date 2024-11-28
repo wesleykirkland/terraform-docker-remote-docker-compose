@@ -7,5 +7,5 @@ locals {
 
   # Checksum validation for triggers, tracked in the state as it's stored in the null_resource triggers section
   compose_file_checksum = filemd5(local.compose_file_short_extention)
-  env_file_checksum     = var.env_file != null ? filemd5("./envs/${local.compose_file_short}.env") : null
+  env_file_checksum     = var.env_file != null ? filemd5(var.env_file) : null
 }
