@@ -69,7 +69,7 @@ module "sample" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_compose_action"></a> [compose\_action](#input\_compose\_action) | Docker compose action up/down/delete | `string` | `"up"` | no |
 | <a name="input_docker_host"></a> [docker\_host](#input\_docker\_host) | FQDN of your docker host to ssh to | `string` | n/a | yes |
-| <a name="input_env_file"></a> [env\_file](#input\_env\_file) | Unencrypted ENV file to pass to the docker compose stack | `string` | `null` | no |
+| <a name="input_env_file"></a> [env\_file](#input\_env\_file) | Unencrypted ENV file to pass to the docker compose stack | `string` | `""` | no |
 | <a name="input_force_pull_image"></a> [force\_pull\_image](#input\_force\_pull\_image) | Docker compose force pull image | `bool` | `false` | no |
 | <a name="input_local_compose_file"></a> [local\_compose\_file](#input\_local\_compose\_file) | Path to docker compose file on the local file system | `string` | n/a | yes |
 | <a name="input_post_delete_env_file"></a> [post\_delete\_env\_file](#input\_post\_delete\_env\_file) | Delete the ENV file after stack execution, highly not recommended | `bool` | `false` | no |
