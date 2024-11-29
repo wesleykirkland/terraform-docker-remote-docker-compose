@@ -25,7 +25,9 @@ module "sample" {
   local_compose_file   = "dashy.yaml"
   remote_compose_path  = "/mnt/disk1/appdata/docker"
   env_file             = module.sample_decrypt.env_path
+  source_env_file      = "./envs/sample.enc.env"
   ssh_key              = "~/.ssh/jenkins"
+  ssh_user             = "cicd"
   post_delete_env_file = false
   compose_action       = "delete"
 
