@@ -20,7 +20,7 @@ resource "null_resource" "decrypt_and_transfer" {
       scp -i ${var.ssh_key} ${var.local_compose_file} ${var.ssh_user}@${var.docker_host}:${var.remote_compose_path}/${local.compose_file_short}/
 
       # Transfer our env file if we specified one
-      ${var.env_file != "" ? "scp -i ${var.ssh_key} ${var.env_file} ${var.ssh_user}@${var.docker_host}:${var.remote_compose_path}/${local.compose_file_short}/.env" : ""}
+      ${var.env_file != null ? "scp -i ${var.ssh_key} ${var.env_file} ${var.ssh_user}@${var.docker_host}:${var.remote_compose_path}/${local.compose_file_short}/.env" : ""}
     EOT
   }
 }
@@ -48,11 +48,11 @@ resource "null_resource" "remote_docker_compose" {
 
     inline = [
       var.force_pull_image == false
-      ? "docker-compose -f ${self.triggers.compose_file} ${var.env_file != "" ? "--env-file ${var.remote_compose_path}/${local.compose_file_short}/.env" : ""} ${self.triggers.compose_action} ${var.compose_action == "up" ? "-d" : ""} --remove-orphans"
+      ? "docker-compose -f ${self.triggers.compose_file} ${var.env_file != null ? "--env-file ${var.remote_compose_path}/${local.compose_file_short}/.env" : ""} ${self.triggers.compose_action} ${var.compose_action == "up" ? "-d" : ""} --remove-orphans"
       : <<EOT
         docker-compose -f ${self.triggers.compose_file} pull
         docker-compose -f ${self.triggers.compose_file} down
-        docker-compose -f ${self.triggers.compose_file} ${var.env_file != "" ? "--env-file ${var.remote_compose_path}/${local.compose_file_short}/.env" : ""} ${self.triggers.compose_action} ${var.compose_action == "up" ? "-d" : ""} --remove-orphans
+        docker-compose -f ${self.triggers.compose_file} ${var.env_file != null ? "--env-file ${var.remote_compose_path}/${local.compose_file_short}/.env" : ""} ${self.triggers.compose_action} ${var.compose_action == "up" ? "-d" : ""} --remove-orphans
         EOT
       ,
     ]
