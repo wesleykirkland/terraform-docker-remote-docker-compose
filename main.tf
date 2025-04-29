@@ -48,11 +48,11 @@ resource "null_resource" "remote_docker_compose" {
 
     inline = [
       var.force_pull_image == false
-      ? "docker-compose -f ${self.triggers.compose_file} ${var.env_file != null ? "--env-file ${var.remote_compose_path}/${local.compose_file_short}/.env" : ""} ${self.triggers.compose_action} ${var.compose_action == "up" ? "-d" : ""} --remove-orphans"
+      ? "docker compose -f ${self.triggers.compose_file} ${var.env_file != null ? "--env-file ${var.remote_compose_path}/${local.compose_file_short}/.env" : ""} ${self.triggers.compose_action} ${var.compose_action == "up" ? "-d" : ""} --remove-orphans"
       : <<EOT
-        docker-compose -f ${self.triggers.compose_file} pull
-        docker-compose -f ${self.triggers.compose_file} down
-        docker-compose -f ${self.triggers.compose_file} ${var.env_file != null ? "--env-file ${var.remote_compose_path}/${local.compose_file_short}/.env" : ""} ${self.triggers.compose_action} ${var.compose_action == "up" ? "-d" : ""} --remove-orphans
+        docker compose -f ${self.triggers.compose_file} pull
+        docker compose -f ${self.triggers.compose_file} down
+        docker compose -f ${self.triggers.compose_file} ${var.env_file != null ? "--env-file ${var.remote_compose_path}/${local.compose_file_short}/.env" : ""} ${self.triggers.compose_action} ${var.compose_action == "up" ? "-d" : ""} --remove-orphans
         EOT
       ,
     ]
@@ -98,8 +98,8 @@ resource "null_resource" "cleanup" {
 
       if [ -n \"\$COMPOSE_CHECK\" ]; then
           echo \"The stack is running, turning down stack before deletion.\"
-          # Run docker-compose down to stop the stack
-          docker-compose -f ${local.full_compose_path} down --remove-orphans
+          # Run docker compose down to stop the stack
+          docker compose -f ${local.full_compose_path} down --remove-orphans
 
           # Loop until the stack is confirmed to be down
           while true; do
@@ -108,8 +108,8 @@ resource "null_resource" "cleanup" {
 
               if [ -n \"\$COMPOSE_CHECK\" ]; then
                   echo \"The stack is still running, trying to bring it down again.\"
-                  # Run docker-compose down again if the stack is still running
-                  docker-compose -f ${local.full_compose_path} down --remove-orphans
+                  # Run docker compose down again if the stack is still running
+                  docker compose -f ${local.full_compose_path} down --remove-orphans
                   # Optional: add a small delay to prevent rapid retries
                   sleep 2
               else
