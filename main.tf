@@ -48,7 +48,7 @@ resource "null_resource" "remote_docker_compose" {
 
     inline = [
       var.force_pull_image == false
-      ? "${var.executable}${var.executable}  compose -f ${self.triggers.compose_file} ${var.env_file != null ? "--env-file ${var.remote_compose_path}/${local.compose_file_short}/.env" : ""} ${self.triggers.compose_action} ${var.compose_action == "up" ? "-d" : ""} --remove-orphans"
+      ? "${var.executable} compose -f ${self.triggers.compose_file} ${var.env_file != null ? "--env-file ${var.remote_compose_path}/${local.compose_file_short}/.env" : ""} ${self.triggers.compose_action} ${var.compose_action == "up" ? "-d" : ""} --remove-orphans"
       : <<EOT
         ${var.executable} compose -f ${self.triggers.compose_file} pull
         ${var.executable} compose -f ${self.triggers.compose_file} down
