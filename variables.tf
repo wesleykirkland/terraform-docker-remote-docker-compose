@@ -58,3 +58,8 @@ variable "force_pull_image" {
   default     = false
 }
 
+variable "executable" {
+  description = "Executable, typically set to docker or podman."
+  type        = string
+  default     = "docker"
+}
